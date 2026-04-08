@@ -1,0 +1,79 @@
+{
+  "entity": "Equans",
+  "use_cases": [
+    {
+      "id": "aiquans",
+      "title": "AIQuans",
+      "year": 2025,
+      "filiale": "Equans",
+      "domain": "Appels d’offres",
+
+      "use_case": {
+        "problem": "La qualification des RFP est longue et hétérogène.",
+        "solution": "Automatiser l’analyse des contrats et des risques.",
+        "functional_description": "Analyse documentaire, profiling des risques et Q&A contextuel."
+      },
+
+      "value_and_gains": {
+        "summary": "Décisions plus rapides et plus fiables.",
+        "detailed_gains": [
+          "Réduction du temps d’analyse",
+          "Diminution des risques contractuels",
+          "Amélioration de la cohérence décisionnelle"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["IA générative"],
+        "algorithms": ["GPT-4o", "Azure AI Search"],
+        "platforms": ["Azure"]
+      },
+
+      "delivery": {
+        "target_users": ["Management", "Opérationnel"],
+        "maturity": "MVP",
+        "update_frequency": ["Temps réel"],
+        "cost_level": "€€€"
+      }
+    },
+
+    {
+      "id": "centre-services-intelligent",
+      "title": "Centre de Services Intelligent",
+      "year": 2024,
+      "filiale": "Equans France",
+      "domain": "Support IT",
+
+      "use_case": {
+        "problem": "Surcharge des centres de support par des demandes répétitives.",
+        "solution": "Agent vocal IA autonome pour le support IT.",
+        "functional_description": "Compréhension vocale, résolution automatique ou escalade avec résumé."
+      },
+
+      "value_and_gains": {
+        "summary": "Réduction des coûts IT et des temps d’attente.",
+        "detailed_gains": [
+          "Résolution autonome de 54 % des appels",
+          "Forte amélioration de la disponibilité"
+        ],
+        "quantified_gains": [
+          { "type": "time", "value": "10 min → 2 min par appel" }
+        ]
+      },
+
+      "ai": {
+        "ai_type": ["IA générative", "IA vocale"],
+        "algorithms": ["GPT-4o"],
+        "platforms": ["Azure", "Azure Communication Services"]
+      },
+
+      "delivery": {
+        "target_users": ["Opérationnel"],
+        "maturity": "IND",
+        "update_frequency": ["Temps réel"],
+        "cost_level": "€€€"
+      }
+    }
+  ]
+}

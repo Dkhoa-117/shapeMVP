@@ -1,0 +1,42 @@
+{
+  "entity": "TF1",
+  "use_cases": [
+    {
+      "id": "lci-live-subtitling",
+      "title": "Sous-titrage Live LCI",
+      "year": 2025,
+      "filiale": "LCI",
+      "domain": "Média",
+
+      "use_case": {
+        "problem": "Nouvelles obligations ARCOM de sous-titrage en direct.",
+        "solution": "Automatiser le sous-titrage live par IA.",
+        "functional_description": "Reconnaissance vocale temps réel intégrée au flux live."
+      },
+
+      "value_and_gains": {
+        "summary": "Conformité réglementaire avec réduction des coûts.",
+        "detailed_gains": [
+          "Diminution des coûts de sous‑traitance",
+          "Industrialisation du sous‑titrage en direct"
+        ],
+        "quantified_gains": [
+          { "type": "cost", "value": "170 k€ économisés / an" }
+        ]
+      },
+
+      "ai": {
+        "ai_type": ["Speech-to-Text"],
+        "algorithms": ["Speechmatics"],
+        "platforms": ["Broadteam"]
+      },
+
+      "delivery": {
+        "target_users": ["Opérationnel"],
+        "maturity": "IND",
+        "update_frequency": ["Temps réel"],
+        "cost_level": "€€"
+      }
+    }
+  ]
+}

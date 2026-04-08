@@ -1,0 +1,153 @@
+{
+  "entity": "Bouygues Construction",
+  "use_cases": [
+    {
+      "id": "by-cycle",
+      "title": "By Cycle",
+      "year": 2025,
+      "filiale": "Bouygues Travaux Publics",
+      "domain": "Opérations / Logistique",
+
+      "use_case": {
+        "problem": "La détection de cycles repose sur des règles métiers rigides et peu maintenables.",
+        "solution": "Automatiser la détection et la segmentation des cycles par IA.",
+        "functional_description": "Sélection de variables métiers, détection automatique des cycles, segmentation statistique et production d’analyses exploitables."
+      },
+
+      "value_and_gains": {
+        "summary": "Amélioration de la performance opérationnelle et réduction des coûts.",
+        "detailed_gains": [
+          "Suppression des règles métiers complexes",
+          "Réduction du temps d’analyse",
+          "Meilleure planification logistique",
+          "Aide à la décision data-driven"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["Machine Learning"],
+        "algorithms": ["Détection de ruptures", "KMeans"],
+        "platforms": ["Databricks", "AKS"]
+      },
+
+      "delivery": {
+        "target_users": ["Management", "Opérationnel"],
+        "maturity": "IND",
+        "update_frequency": ["Temps réel", "Jour"],
+        "cost_level": "€€"
+      }
+    },
+
+    {
+      "id": "certicheck-ai",
+      "title": "CertiCheck AI",
+      "year": 2025,
+      "filiale": "Bouygues Bâtiment France / International",
+      "domain": "Finance / Assurance",
+
+      "use_case": {
+        "problem": "La vérification des attestations d’assurance est manuelle, longue et sujette à erreurs.",
+        "solution": "Automatiser l’extraction et la vérification de conformité des attestations.",
+        "functional_description": "OCR et LLM extraient les informations clés et vérifient leur conformité réglementaire."
+      },
+
+      "value_and_gains": {
+        "summary": "Réduction de la charge administrative et des risques juridiques.",
+        "detailed_gains": [
+          "Réduction du temps de traitement",
+          "Diminution des risques de non‑conformité",
+          "Possibilité d’extension à d’autres documents (URSSAF, KBIS)"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["IA générative", "OCR"],
+        "algorithms": ["Mistral OCR", "Mistral Large"],
+        "platforms": ["Snowflake", "Mistral"]
+      },
+
+      "delivery": {
+        "target_users": ["Management", "Opérationnel"],
+        "maturity": "POC",
+        "update_frequency": ["Semaine", "An"],
+        "cost_level": "€€"
+      }
+    },
+
+    {
+      "id": "polyboost",
+      "title": "PolyBoost",
+      "year": 2025,
+      "filiale": "Bouygues Bâtiment France",
+      "domain": "Ingénierie / Devis",
+
+      "use_case": {
+        "problem": "La capitalisation des devis est manuelle et chronophage.",
+        "solution": "Automatiser l’extraction et la classification des devis.",
+        "functional_description": "Extraction sémantique des devis et classification automatique dans la base Polybrain."
+      },
+
+      "value_and_gains": {
+        "summary": "Accélération de la capitalisation et amélioration de la qualité des chiffrages.",
+        "detailed_gains": [
+          "Suppression du copier-coller",
+          "Réduction des erreurs",
+          "Augmentation du volume de devis exploitables"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["IA générative"],
+        "algorithms": ["LLM", "OCR", "Classification"],
+        "platforms": ["Azure", "OpenAI", "Mistral"]
+      },
+
+      "delivery": {
+        "target_users": ["Opérationnel"],
+        "maturity": "POC",
+        "update_frequency": ["Semaine"],
+        "cost_level": "€€"
+      }
+    },
+
+    {
+      "id": "tender-souvenir",
+      "title": "Tender Souvenir",
+      "year": 2025,
+      "filiale": "Bouygues Travaux Publics",
+      "domain": "Appels d’offres",
+
+      "use_case": {
+        "problem": "Difficulté à retrouver une information précise dans des milliers de livrables techniques.",
+        "solution": "Indexation fine des documents techniques pour recherche contextuelle.",
+        "functional_description": "Indexation au niveau paragraphe, OCR des images et tableaux, recherche multi-critères."
+      },
+
+      "value_and_gains": {
+        "summary": "Amélioration de la qualité et du taux de réussite des appels d’offres.",
+        "detailed_gains": [
+          "Gain de temps pour les équipes offres",
+          "Capitalisation des retours d’expérience",
+          "Homogénéité des livrables techniques"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["Recherche augmentée"],
+        "algorithms": ["Indexation", "OCR"],
+        "platforms": ["OpenSearch"]
+      },
+
+      "delivery": {
+        "target_users": ["Management", "Opérationnel"],
+        "maturity": "MVP",
+        "update_frequency": ["Semaine"],
+        "cost_level": "€€"
+      }
+    }
+  ]
+}

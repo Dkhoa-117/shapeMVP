@@ -1,0 +1,117 @@
+{
+  "entity": "Colas",
+  "use_cases": [
+    {
+      "id": "bids-insights",
+      "title": "Bids Insights",
+      "year": 2025,
+      "filiale": "Colas France",
+      "domain": "Commercial / Pricing",
+
+      "use_case": {
+        "problem": "Manque de visibilité structurée sur l’environnement concurrentiel lors des appels d’offres.",
+        "solution": "Automatiser la collecte et l’analyse des rapports d’appels d’offres.",
+        "functional_description": "L’outil contacte automatiquement les donneurs d’ordre après attribution ou rejet d’un marché, récupère les rapports et alimente une base de données concurrentielle exploitable."
+      },
+
+      "value_and_gains": {
+        "summary": "Amélioration du positionnement concurrentiel et de la stratégie de pricing.",
+        "detailed_gains": [
+          "Meilleure connaissance des concurrents",
+          "Gain de temps pour les bureaux d’étude",
+          "Amélioration des propositions techniques et financières"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["IA générative"],
+        "algorithms": ["LLM"],
+        "platforms": ["Azure", "Power Automate", "OpenAI"]
+      },
+
+      "delivery": {
+        "target_users": ["Management", "Opérationnel"],
+        "maturity": "MVP",
+        "update_frequency": ["Semaine"],
+        "cost_level": "€€"
+      }
+    },
+
+    {
+      "id": "eagle",
+      "title": "EAGLE",
+      "year": 2025,
+      "filiale": "Colas Rail / Oc'Via Maintenance",
+      "domain": "Maintenance ferroviaire",
+
+      "use_case": {
+        "problem": "Le traitement manuel des données de géométrie ferroviaire est long et partiellement exploité.",
+        "solution": "Automatiser l’analyse et la visualisation des défauts de géométrie de la voie.",
+        "functional_description": "Les données issues de wagons capteurs sont corrigées, analysées et visualisées via un tableau de bord permettant le suivi des défauts et de leur évolution."
+      },
+
+      "value_and_gains": {
+        "summary": "Fiabilisation de l’analyse et gain de temps significatif.",
+        "detailed_gains": [
+          "Automatisation du traitement des données",
+          "Amélioration de la qualité d’observation",
+          "Meilleure planification de la maintenance"
+        ],
+        "quantified_gains": [
+          { "type": "time", "value": "300 h économisées par an" }
+        ]
+      },
+
+      "ai": {
+        "ai_type": ["Machine Learning"],
+        "algorithms": ["Chaînes de Markov"],
+        "platforms": ["Azure", "Python"]
+      },
+
+      "delivery": {
+        "target_users": ["Opérationnel"],
+        "maturity": "MVP",
+        "update_frequency": ["Semaine", "À la demande"],
+        "cost_level": "€€"
+      }
+    },
+
+    {
+      "id": "opticargos",
+      "title": "Opticargos",
+      "year": 2025,
+      "filiale": "Continental Bitumen Ltd.",
+      "domain": "Transport / Logistique",
+
+      "use_case": {
+        "problem": "La planification du transport maritime de bitume repose sur des essais successifs peu optimisés.",
+        "solution": "Optimiser automatiquement les plans de transport maritime.",
+        "functional_description": "L’application calcule des plans de transport optimisés en maximisant la marge opérationnelle et l’utilisation des navires."
+      },
+
+      "value_and_gains": {
+        "summary": "Optimisation de la flotte et amélioration de la rentabilité.",
+        "detailed_gains": [
+          "Amélioration de la marge globale",
+          "Meilleure disponibilité des navires",
+          "Capacité d’adaptation aux événements perturbateurs"
+        ],
+        "quantified_gains": []
+      },
+
+      "ai": {
+        "ai_type": ["Optimisation algorithmique"],
+        "algorithms": ["Optimiseur"],
+        "platforms": ["Hexaly"]
+      },
+
+      "delivery": {
+        "target_users": ["Opérationnel"],
+        "maturity": "MVP",
+        "update_frequency": ["Semaine", "À la demande"],
+        "cost_level": "€€€"
+      }
+    }
+  ]
+}

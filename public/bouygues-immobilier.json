@@ -1,0 +1,43 @@
+{
+  "entity": "Bouygues Immobilier",
+  "use_cases": [
+    {
+      "id": "diagnostic-territoire",
+      "title": "Diagnostic de Territoire",
+      "year": 2025,
+      "filiale": "Bouygues Immobilier",
+      "domain": "Développement foncier",
+
+      "use_case": {
+        "problem": "Les analyses territoriales sont longues, manuelles et peu homogènes.",
+        "solution": "Automatiser l’analyse socio-démographique et immobilière d’un territoire.",
+        "functional_description": "À partir de données socio-démographiques, de services et de prix immobiliers, l’outil génère automatiquement une analyse territoriale complète utilisable par les développeurs fonciers."
+      },
+
+      "value_and_gains": {
+        "summary": "Réduction drastique des délais et autonomie totale des équipes métiers.",
+        "detailed_gains": [
+          "Analyse produite en 2 minutes au lieu de 2 semaines",
+          "Amélioration de la qualité et de l’image institutionnelle",
+          "Meilleure crédibilité auprès des élus"
+        ],
+        "quantified_gains": [
+          { "type": "time", "value": "2 semaines → 2 minutes" }
+        ]
+      },
+
+      "ai": {
+        "ai_type": ["IA générative"],
+        "algorithms": ["GPT‑4o", "Few‑shot prompting"],
+        "platforms": ["Azure OpenAI", "Python"]
+      },
+
+      "delivery": {
+        "target_users": ["Management", "Opérationnel"],
+        "maturity": "MVP",
+        "update_frequency": ["À la demande"],
+        "cost_level": "€€"
+      }
+    }
+  ]
+}
