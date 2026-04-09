@@ -308,7 +308,7 @@ const AboutPage = () => {
           <div className='relative'>
             <div className='rounded-xl overflow-hidden shadow-2xl border border-gray-100 bg-white p-2'>
               <img
-                src='https://images.unsplash.com/photo-1518005052357-e987154dd981?q=80&w=2670&auto=format&fit=crop'
+                src='https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2670&auto=format&fit=crop'
                 alt='Sustainable City Infrastructure'
                 className='w-full h-auto object-cover rounded-lg hover:scale-[1.02] transition-transform duration-500'
               />
