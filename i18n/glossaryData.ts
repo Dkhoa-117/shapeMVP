@@ -4,9 +4,65 @@ export interface GlossaryTerm {
   definition: { en: string; fr: string };
 }
 
+export function toGlossaryAnchor(term: string): string {
+  return term
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export interface GlossaryGroup {
   letter: string;
   terms: GlossaryTerm[];
+}
+
+export function autoLinkGlossaryTerms(html: string): string {
+  if (!html) return html;
+
+  // Build all matchable strings: term.fr, term.en (if different), acronym
+  const entries: Array<{ text: string; anchor: string; termFr: string }> = [];
+  for (const group of GLOSSARY_DATA_BILINGUAL) {
+    for (const item of group.terms) {
+      const anchor = toGlossaryAnchor(item.term.fr);
+      entries.push({ text: item.term.fr, anchor, termFr: item.term.fr });
+      if (item.term.en !== item.term.fr) {
+        entries.push({ text: item.term.en, anchor, termFr: item.term.fr });
+      }
+      if (item.acronym) {
+        entries.push({ text: item.acronym, anchor, termFr: item.term.fr });
+      }
+    }
+  }
+
+  // Longest first so multi-word terms win over sub-terms
+  entries.sort((a, b) => b.text.length - a.text.length);
+
+  const termMap = new Map(entries.map((e) => [e.text.toLowerCase(), e]));
+  const escaped = entries.map((e) =>
+    e.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+  );
+  const pattern = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
+
+  // Split on tags; only replace text in non-anchor nodes
+  const parts = html.split(/(<[^>]+>)/);
+  let inAnchor = false;
+  return parts
+    .map((part) => {
+      if (part.startsWith('<')) {
+        if (/^<a\b/i.test(part)) inAnchor = true;
+        else if (/^<\/a>/i.test(part)) inAnchor = false;
+        return part;
+      }
+      if (inAnchor || !part) return part;
+      return part.replace(pattern, (m) => {
+        const entry = termMap.get(m.toLowerCase());
+        if (!entry) return m;
+        return `<a href="/glossaire#${entry.anchor}" class="glossary-link" data-glossary-term="${entry.termFr}">${m}</a>`;
+      });
+    })
+    .join('');
 }
 
 export const GLOSSARY_DATA_BILINGUAL: GlossaryGroup[] = [

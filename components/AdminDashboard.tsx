@@ -1,6 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DefaultEditor as WysiwygEditor } from 'react-simple-wysiwyg';
+import {
+  Editor,
+  EditorProvider,
+  Toolbar,
+  BtnBold,
+  BtnItalic,
+  BtnUnderline,
+  BtnStrikeThrough,
+  BtnNumberedList,
+  BtnBulletList,
+  BtnLink,
+  BtnClearFormatting,
+  Separator,
+} from 'react-simple-wysiwyg';
+import {
+  GLOSSARY_DATA_BILINGUAL,
+  toGlossaryAnchor,
+} from '../i18n/glossaryData';
 import {
   LayoutDashboard,
   Package,
@@ -54,6 +71,152 @@ import {
   SolutionLevierValeur,
 } from '../types';
 import Button from './Button';
+
+// --- Glossary Link Toolbar Button ---
+
+const GlossaryLinkButton: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const savedRangeRef = useRef<Range | null>(null);
+
+  const handleButtonMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) {
+      savedRangeRef.current = sel.getRangeAt(0).cloneRange();
+    } else {
+      savedRangeRef.current = null;
+    }
+    setOpen((prev) => !prev);
+    setSearch('');
+  };
+
+  const handleTermSelect = (termFr: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const anchor = toGlossaryAnchor(termFr);
+    const savedRange = savedRangeRef.current;
+    const linkText =
+      savedRange && !savedRange.collapsed ? savedRange.toString() : termFr;
+    const sel = window.getSelection();
+    if (sel && savedRange) {
+      sel.removeAllRanges();
+      sel.addRange(savedRange);
+    }
+    document.execCommand(
+      'insertHTML',
+      false,
+      `<a href="/glossaire#${anchor}" class="glossary-link" data-glossary-term="${termFr}">${linkText}</a>`,
+    );
+    setOpen(false);
+    setSearch('');
+  };
+
+  const allTerms = GLOSSARY_DATA_BILINGUAL.flatMap((g) => g.terms);
+  const searchLower = search.toLowerCase();
+  const filtered = search.trim()
+    ? allTerms.filter(
+        (item) =>
+          item.term.fr.toLowerCase().includes(searchLower) ||
+          item.term.en.toLowerCase().includes(searchLower) ||
+          (item.acronym && item.acronym.toLowerCase().includes(searchLower)),
+      )
+    : allTerms;
+
+  return (
+    <div className='relative inline-block'>
+      <button
+        type='button'
+        onMouseDown={handleButtonMouseDown}
+        title='Insert Glossary Link'
+        className='rsw-btn'
+        style={{
+          fontSize: '11px',
+          fontWeight: 700,
+          letterSpacing: '0.02em',
+          padding: '2px 6px',
+        }}
+      >
+        G↗
+      </button>
+      {open && (
+        <div
+          className='absolute z-50 bg-white border border-gray-200 rounded-xl shadow-xl'
+          style={{
+            top: '100%',
+            left: 0,
+            minWidth: 240,
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+          onMouseDown={(e) => e.preventDefault()}
+        >
+          <div className='p-2 border-b border-gray-100'>
+            <input
+              autoFocus
+              type='text'
+              placeholder='Search term...'
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className='w-full px-2 py-1 text-sm border rounded outline-none focus:ring-1 focus:ring-primary/30'
+            />
+          </div>
+          <ul className='overflow-y-auto' style={{ maxHeight: 220 }}>
+            {filtered.map((item) => (
+              <li key={item.term.fr}>
+                <button
+                  type='button'
+                  onMouseDown={(e) => handleTermSelect(item.term.fr, e)}
+                  className='w-full text-left px-3 py-2 text-sm hover:bg-orange-50 hover:text-primary flex items-baseline gap-1.5'
+                >
+                  <span className='font-medium'>{item.term.fr}</span>
+                  {item.acronym && (
+                    <span className='text-xs text-gray-400'>
+                      ({item.acronym})
+                    </span>
+                  )}
+                </button>
+              </li>
+            ))}
+            {filtered.length === 0 && (
+              <li className='px-3 py-4 text-sm text-gray-400 text-center'>
+                No terms found
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+type EditorChangeEvent = React.SyntheticEvent<HTMLElement, Event> & {
+  target: { value: string };
+};
+
+const GlossaryEditor: React.FC<{
+  value: string;
+  onChange: (e: EditorChangeEvent) => void;
+}> = ({ value, onChange }) => (
+  <EditorProvider>
+    <Editor value={value} onChange={onChange as any}>
+      <Toolbar>
+        <BtnBold />
+        <BtnItalic />
+        <BtnUnderline />
+        <BtnStrikeThrough />
+        <Separator />
+        <BtnNumberedList />
+        <BtnBulletList />
+        <Separator />
+        <BtnLink />
+        <BtnClearFormatting />
+        <Separator />
+        <GlossaryLinkButton />
+      </Toolbar>
+    </Editor>
+  </EditorProvider>
+);
 
 // --- Sub-components ---
 
@@ -894,7 +1057,7 @@ const SolutionsManager = ({
               HTML)
             </h3>
             <div className='border rounded-xl overflow-hidden'>
-              <WysiwygEditor
+              <GlossaryEditor
                 value={currentSolution.useCaseHtml || ''}
                 onChange={(e) =>
                   setCurrentSolution({
@@ -913,7 +1076,7 @@ const SolutionsManager = ({
               (rich HTML)
             </h3>
             <div className='border rounded-xl overflow-hidden'>
-              <WysiwygEditor
+              <GlossaryEditor
                 value={currentSolution.valuesGainsHtml || ''}
                 onChange={(e) =>
                   setCurrentSolution({

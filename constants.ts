@@ -173,7 +173,7 @@ export const MOCK_SOLUTIONS: Solution[] = [
   <li>la validité territoriale</li>
   <li>les montants de couverture</li>
 </ul>
-<p>Le POC est en cours sur un périmètre France et un périmètre Suisse.</p>`,
+<p>Le POC est en cours sur un périmètre France et un périmètre Suisse Chatbot.</p>`,
     valuesGainsHtml: `<p>En automatisant la vérification de la conformité des attestations d'assurance, CertiCheck AI permet de :</p>
 <ul>
   <li>réduire la charge de travail des équipes administratives en charge de ces vérifications</li>

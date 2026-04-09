@@ -6,6 +6,7 @@ import {
   Link,
   useParams,
   useLocation,
+  useNavigate,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Header from './components/Header';
@@ -54,7 +55,11 @@ import {
   SolutionCible,
   SolutionLevierValeur,
 } from './types';
-import { GLOSSARY_DATA_BILINGUAL } from './i18n/glossaryData';
+import {
+  GLOSSARY_DATA_BILINGUAL,
+  toGlossaryAnchor,
+  autoLinkGlossaryTerms,
+} from './i18n/glossaryData';
 
 // --- Page Components ---
 
@@ -471,7 +476,17 @@ const StarRating = ({
 const SolutionDetail = () => {
   const { slug } = useParams();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const solution = MOCK_SOLUTIONS.find((s) => s.slug === slug);
+
+  const handleGlossaryClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = (e.target as HTMLElement).closest('a.glossary-link');
+    if (target) {
+      e.preventDefault();
+      const href = target.getAttribute('href');
+      if (href) navigate(href);
+    }
+  };
 
   if (!solution)
     return (
@@ -611,11 +626,13 @@ const SolutionDetail = () => {
                 </h3>
                 <div
                   className='prose prose-gray max-w-none text-gray-600 leading-relaxed'
+                  onClick={handleGlossaryClick}
                   dangerouslySetInnerHTML={{
-                    __html:
+                    __html: autoLinkGlossaryTerms(
                       i18n.language?.startsWith('en') && solution.useCaseHtmlEn
                         ? solution.useCaseHtmlEn
                         : solution.useCaseHtml,
+                    ),
                   }}
                 />
               </div>
@@ -635,12 +652,14 @@ const SolutionDetail = () => {
               </div>
               <div
                 className='prose prose-gray max-w-none text-gray-700 leading-relaxed'
+                onClick={handleGlossaryClick}
                 dangerouslySetInnerHTML={{
-                  __html:
+                  __html: autoLinkGlossaryTerms(
                     i18n.language?.startsWith('en') &&
-                    solution.valuesGainsHtmlEn
+                      solution.valuesGainsHtmlEn
                       ? solution.valuesGainsHtmlEn
                       : solution.valuesGainsHtml,
+                  ),
                 }}
               />
             </section>
@@ -1963,6 +1982,35 @@ const MainLayout = ({ children }: { children?: React.ReactNode }) => {
 const GlossairePage = () => {
   const [search, setSearch] = useState('');
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add(
+          'ring-2',
+          'ring-primary',
+          'ring-offset-4',
+          'rounded-lg',
+        );
+        setTimeout(
+          () =>
+            el.classList.remove(
+              'ring-2',
+              'ring-primary',
+              'ring-offset-4',
+              'rounded-lg',
+            ),
+          2000,
+        );
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [location.hash]);
 
   const totalTerms = GLOSSARY_DATA_BILINGUAL.reduce(
     (acc, g) => acc + g.terms.length,
@@ -2065,7 +2113,11 @@ const GlossairePage = () => {
                           ? item.definition.en
                           : item.definition.fr;
                         return (
-                          <div key={item.term.fr} className='group'>
+                          <div
+                            key={item.term.fr}
+                            id={toGlossaryAnchor(item.term.fr)}
+                            className='group'
+                          >
                             <h3 className='text-sm font-bold text-dark uppercase tracking-widest mb-1 flex flex-wrap items-baseline gap-1.5'>
                               {termText}
                               {item.acronym && (
